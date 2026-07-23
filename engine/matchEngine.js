@@ -1,87 +1,170 @@
-function playMatch(match, leagueTable) {
+// =======================================
+// Souraverse Football Manager
+// Universal Match Engine
+// Version 0.1 Alpha
+// =======================================
 
-    const homeStrength = match.home.reputation + Math.random() * 2 + 1;
-    const awayStrength = match.away.reputation + Math.random() * 2;
+let currentMatch = null;
 
-    let homeGoals = 0;
-    let awayGoals = 0;
+// ---------------------------------------
+// Create Match
+// ---------------------------------------
 
-    for (let i = 0; i < homeStrength; i++) {
-        if (Math.random() < 0.28) homeGoals++;
-    }
+function createMatch(matchData){
 
-    for (let i = 0; i < awayStrength; i++) {
-        if (Math.random() < 0.25) awayGoals++;
-    }
+    currentMatch = {
 
-    match.homeGoals = homeGoals;
-    match.awayGoals = awayGoals;
-    match.played = true;
+        competition : matchData.competition,
 
-    updateLeagueTable(leagueTable, match);
+        homeClub : matchData.homeClub,
+        awayClub : matchData.awayClub,
 
-    return {
+        stadium : matchData.stadium,
 
-        homeClub: match.home.name,
+        playable : matchData.playable,
 
-        awayClub: match.away.name,
+        matchLength : matchData.matchLength || 90,
 
-        homeGoals,
+        currentMinute : 0,
 
-        awayGoals,
+        half : 1,
 
-        attendance: generateAttendance(match),
+        status : "Not Started",
 
-        playerOfTheMatch: generatePlayerOfTheMatch(match)
+        homeGoals : 0,
+        awayGoals : 0,
+
+        possessionHome : 50,
+        possessionAway : 50,
+
+        shotsHome : 0,
+        shotsAway : 0,
+
+        shotsOnTargetHome : 0,
+        shotsOnTargetAway : 0,
+
+        yellowHome : 0,
+        yellowAway : 0,
+
+        redHome : 0,
+        redAway : 0,
+
+        commentary : [],
+
+        events : [],
+
+        finished : false
 
     };
 
 }
 
-function generateAttendance(match){
+// ---------------------------------------
+// Start Match
+// ---------------------------------------
 
-    const capacity = match.home.capacity || 25000;
+function startMatch(matchData){
 
-    const fanFactor = match.home.fans / 250000;
+    createMatch(matchData);
 
-    let attendance = Math.floor(
+    if(currentMatch.playable){
 
-        capacity * (0.45 + fanFactor * Math.random())
+        startPlayableMatch();
 
-    );
+    }else{
 
-    attendance = Math.min(attendance, capacity);
+        simulateMatch();
 
-    return attendance;
+    }
 
 }
 
-function generatePlayerOfTheMatch(match){
+// ---------------------------------------
+// Playable Match
+// ---------------------------------------
 
-    const names=[
+function startPlayableMatch(){
 
-        "A. Roy",
+    currentMatch.status = "First Half";
 
-        "S. Khan",
+    showPlayableMatch();
 
-        "R. Das",
+}
 
-        "P. Bose",
+// ---------------------------------------
+// Simulated Match
+// ---------------------------------------
 
-        "A. Singh",
+function simulateMatch(){
 
-        "K. Sharma",
+    currentMatch.status = "Simulating";
 
-        "M. Ali",
+    simulateEntireMatch();
 
-        "D. Sen",
+}
 
-        "T. Paul",
+// ---------------------------------------
+// Half Time
+// ---------------------------------------
 
-        "J. Fernandes"
+function startSecondHalf(){
 
-    ];
+    currentMatch.half = 2;
 
-    return names[Math.floor(Math.random()*names.length)];
+    currentMatch.status = "Second Half";
+
+    showPlayableMatch();
+
+}
+
+// ---------------------------------------
+// Finish Match
+// ---------------------------------------
+
+function finishMatch(){
+
+    currentMatch.finished = true;
+
+    currentMatch.status = "Finished";
+
+    showFullTimeScreen();
+
+}
+
+// ---------------------------------------
+// Helper Functions
+// ---------------------------------------
+
+function addGoal(team){
+
+    if(team=="home"){
+
+        currentMatch.homeGoals++;
+
+    }else{
+
+        currentMatch.awayGoals++;
+
+    }
+
+}
+
+function addComment(text){
+
+    currentMatch.commentary.push(text);
+
+}
+
+function addEvent(event){
+
+    currentMatch.events.push(event);
+
+}
+
+function getScore(){
+
+    return currentMatch.homeGoals +
+    " - " +
+    currentMatch.awayGoals;
 
 }
