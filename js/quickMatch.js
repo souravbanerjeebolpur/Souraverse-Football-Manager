@@ -78,7 +78,7 @@ function prepareQuickMatch(){
 
     }
 
-    content.innerHTML = `
+    content.innerHTML=`
 
     <div class="card">
 
@@ -90,20 +90,21 @@ function prepareQuickMatch(){
 
         <h3>${quickMatchAway.name}</h3>
 
-        <p>
-        Stadium :
-        ${stadiumType.value}
-        </p>
-
-        <p>
-        Mentality :
-        ${mentality.value}
-        </p>
+        <br>
 
         <button class="bigButton"
-                onclick="startQuickMatch()">
+        onclick="playQuickMatch()">
 
-            ⚽ Kick Off
+        ▶ Play Match
+
+        </button>
+
+        <br><br>
+
+        <button class="bigButton"
+        onclick="simulateQuickMatch()">
+
+        ⚡ Simulate Match
 
         </button>
 
@@ -113,7 +114,7 @@ function prepareQuickMatch(){
 
 }
 
-function startQuickMatch() {
+function simulateQuickMatch()  {
 
     const home = quickMatchHome;
     const away = quickMatchAway;
@@ -229,5 +230,25 @@ function startQuickMatch() {
 
     </div>
     `;
+
+}
+
+function playQuickMatch(){
+
+    startMatch({
+
+        competition:"Quick Match",
+
+        homeClub:quickMatchHome,
+
+        awayClub:quickMatchAway,
+
+        stadium:null,
+
+        playable:true,
+
+        matchLength:90
+
+    });
 
 }
