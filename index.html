@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Souraverse Football Manager</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div id="loadingScreen">
+
+<div class="logo">
+
+⚽
+
+</div>
+
+<h1>Souraverse Football Manager</h1>
+
+<p>Manager Career Mode</p>
+
+</div>
+
+<div id="game" style="display:none;">
+
+<header>
+
+<div>
+
+<h2>Souraverse Football Manager</h2>
+
+<p id="managerText">
+
+Welcome Manager
+
+</p>
+
+</div>
+
+</header>
+
+<nav class="bottomNav">
+
+    <button id="homeBtn" class="navButton">
+        <span class="navIcon">🏠</span>
+        <span class="navText">Home</span>
+    </button>
+
+    <button id="clubsBtn" class="navButton">
+        <span class="navIcon">🏟️</span>
+        <span class="navText">Club</span>
+    </button>
+
+    <button id="careerBtn" class="navButton">
+        <span class="navIcon">👥</span>
+        <span class="navText">Squad</span>
+    </button>
+
+    <button id="leagueBtn" class="navButton">
+        <span class="navIcon">🏆</span>
+        <span class="navText">League</span>
+    </button>
+
+    <button id="worldBtn" class="navButton">
+        <span class="navIcon">🌍</span>
+        <span class="navText">World</span>
+    </button>
+
+    <button id="settingsBtn" class="navButton">
+        <span class="navIcon">⚙️</span>
+        <span class="navText">More</span>
+    </button>
+
+</nav>
+
+<main id="content">
+
+</main>
+
+</div>
+
+<script src="data/countries.js"></script>
+<script src="data/leagues.js"></script>
+<script src="data/clubs.js"></script>
+<script src="data/stadiums.js"></script>
+
+<script src="engine/fixtureEngine.js"></script>
+<script src="engine/leagueEngine.js"></script>
+<script src="engine/matchEngine.js"></script>
+
+<script src="js/ui.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/career.js"></script>
+
+<script src="ui/dashboard.js"></script>
+
+<script src="js/world.js"></script>
+<script src="js/quickMatch.js"></script>
+<script src="js/app.js"></script>
